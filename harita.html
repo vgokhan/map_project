@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Dünya'nın 7 Harikası</title>
+
+<style type="text/css">
+      html { 
+	      height: 100%;
+	  }
+      
+	  body {
+		  height: 100%; 
+		  margin: 0; 
+		  padding: 0;
+		  background-color: #CCC;
+	  }
+     
+	  #wonder-map { 
+	  	  height: 100%;
+		  width: 100%;
+		  border-right-width: 0px;
+		  border-right-color: #ffffff;
+		  border-right-style: solid;
+		  border-left-width: 0px;
+		  border-left-color: #ffffff;
+		  border-left-style: solid;
+	  }
+	  
+	  .pop_up_box_text {
+	 	  font-family: Georgia, 'Times New Roman', Times, serif; 
+		  font-size: 16px; 
+		  line-height: 22px; 
+		  color: #ffffff; 
+		  display: inline; 
+	  }
+
+</style>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQhEbC2wtzWgE6fQh5g3E7f8-jRJ9r2Yw&sensor=true"></script>
+
+<script type="text/javascript">
+
+var style_wonder = [
+  {
+    "featureType": "administrative",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "poi",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "transit",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "road",
+    "stylers": [
+      { "visibility": "off" }
+    ]
+  },{
+    "featureType": "landscape",
+    "stylers": [
+      { "color": "#cc8e53" }
+    ]
+  },{
+    "featureType": "water",
+    "stylers": [
+      { "visibility": "on" },
+      { "color": "#f8dfbc" }
+    ]
+  }
+];
+
+var style_wonder_zoomed = [
+  {
+    "featureType": "administrative",
+    "stylers": [
+      { "visibility": "on" }
+    ]
+  },{
+    "featureType": "poi",
+    "stylers": [
+      { "visibility": "on" }
+    ]
+  },{
+    "featureType": "transit",
+    "stylers": [
+      { "visibility": "on" }
+    ]
+  },{
+    "featureType": "road",
+    "stylers": [
+      { "visibility": "on" }
+    ]
+  },{
+    "featureType": "landscape",
+    "stylers": [
+      { "color": "#cc8e53" }
+    ]
+  },{
+    "featureType": "water",
+    "stylers": [
+      { "visibility": "on" },
+      { "color": "#f8dfbc" }
+    ]
+  },   {
+    "featureType": "poi.park",
+	"elementType": "geometry",
+    "stylers": [
+      { "color": "#FFFF00" }
+    ]
+  }
+];
+
+var styled_wonder = new google.maps.StyledMapType(style_wonder, {name: "Wonder style"});
+var styled_wonder_zoomed = new google.maps.StyledMapType(style_wonder_zoomed, {name: "wonder style zoomed"});
+
+var wonderMapCenter = new google.maps.LatLng(39.151152, 35.323899);
+var wonderMapZoom = 5;
+
+var wonderMapZoomMax = 10;
+var wonderMapZoomMin = 5;
+
+var wonderMapOptions = { 
+		  center: wonderMapCenter, 
+          zoom: wonderMapZoom,
+		  maxZoom:wonderMapZoomMax,
+		  minZoom:wonderMapZoomMin,
+		  panControl: false,
+		  mapTypeControl: false,
+		  	mapTypeControlOptions: {
+     		mapTypeIds: [ 'map_styles_wonder', 'map_styles_wonder_zoomed']
+			}
+};
+
+var wonderMap;
+
+google.maps.event.addDomListener(window, 'load', loadwonderMap);
+
+function loadwonderMap() {
+	
+wonderMap = new google.maps.Map(document.getElementById("wonder-map"), wonderMapOptions);	
+
+wonderMap.mapTypes.set('map_styles_wonder', styled_wonder);
+wonderMap.mapTypes.set('map_styles_wonder_zoomed', styled_wonder_zoomed);
+wonderMap.setMapTypeId('map_styles_wonder');
+
+google.maps.event.addListener(wonderMap, "zoom_changed", function() {
+	var newZoom = wonderMap.getZoom();
+	if (newZoom > 5){
+		wonderMap.setMapTypeId('map_styles_wonder_zoomed');
+			}
+	else {
+		wonderMap.setMapTypeId('map_styles_wonder');
+	}
+
+});
+
+loadMapMarkers();
+
+}
+
+function loadMapMarkers (){
+
+//KEOPS -----------------
+
+var markerPositionKEOPS = new google.maps.LatLng(30.0599153, 31.2620199);
+
+var markerIconKEOPS = {
+  url: 'icons/icon_keops.png',
+  size: new google.maps.Size(225, 120),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(189, 116)
+};
+
+var markerShapeKEOPS = {
+      coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+      type: 'poly'
+};
+
+markerKEOPS = new google.maps.Marker({
+	  position: markerPositionKEOPS,
+      map: wonderMap,
+      title: 'Wonder Keops',
+	  icon: markerIconKEOPS,
+	  shape: markerShapeKEOPS,
+	  zIndex:102
+});
+
+//BABIL -----------------
+
+var markerPositionBABIL = new google.maps.LatLng(32.6560509, 44.5319585);
+
+var markerIconBABIL = {
+  url: 'icons/icon_babil.png',
+  size: new google.maps.Size(225, 120),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(189, 116)
+};
+
+var markerShapeBABIL = {
+      coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+      type: 'poly'
+};
+
+markerBABIL = new google.maps.Marker({
+	  position: markerPositionBABIL,
+      map: wonderMap,
+      title: 'Wonder Babil',
+	  icon: markerIconBABIL,
+	  shape: markerShapeBABIL,
+	  zIndex:102
+});
+
+//ZEUS -----------------
+
+var markerPositionZEUS = new google.maps.LatLng(40.0827771, 22.3511111);
+
+var markerIconZEUS = {
+  url: 'icons/icon_zeus.png',
+  size: new google.maps.Size(225, 120),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(189, 116)
+};
+
+var markerShapeZEUS = {
+      coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+      type: 'poly'
+};
+
+markerZEUS = new google.maps.Marker({
+	  position: markerPositionZEUS,
+      map: wonderMap,
+      title: 'Wonder Zeus',
+	  icon: markerIconZEUS,
+	  shape: markerShapeZEUS,
+	  zIndex:102
+});
+
+//RODOS -----------------
+
+var markerPositionRODOS = new google.maps.LatLng(36.4355951, 28.2231159);
+
+var markerIconRODOS = {
+  url: 'icons/icon_rodos.png',
+  size: new google.maps.Size(225, 120),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(189, 116)
+};
+
+var markerShapeRODOS = {
+      coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+      type: 'poly'
+};
+
+markerRODOS = new google.maps.Marker({
+	  position: markerPositionRODOS,
+      map: wonderMap,
+      title: 'Wonder Rodos',
+	  icon: markerIconRODOS,
+	  shape: markerShapeRODOS,
+	  zIndex:102
+});
+
+//ISKENDERIYE -----------------
+
+var markerPositionISKENDERIYE = new google.maps.LatLng(31.2241109, 29.9548859);
+
+var markerIconISKENDERIYE = {
+  url: 'icons/icon_iskenderiye.png',
+  size: new google.maps.Size(225, 120),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(189, 116)
+};
+
+var markerShapeISKENDERIYE = {
+      coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+      type: 'poly'
+};
+
+markerISKENDERIYE = new google.maps.Marker({
+	  position: markerPositionISKENDERIYE,
+      map: wonderMap,
+      title: 'Wonder Iskenderiye',
+	  icon: markerIconISKENDERIYE,
+	  shape: markerShapeISKENDERIYE,
+	  zIndex:102
+});
+
+//HALIKARNAS -----------------
+
+var markerPositionHALIKARNAS = new google.maps.LatLng(37.0357905, 27.412774);
+
+var markerIconHALIKARNAS = {
+  url: 'icons/icon_halikarnas.png',
+  size: new google.maps.Size(225, 120),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(189, 116)
+};
+
+var markerShapeHALIKARNAS = {
+      coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+      type: 'poly'
+};
+
+markerRODOS = new google.maps.Marker({
+	  position: markerPositionHALIKARNAS,
+      map: wonderMap,
+      title: 'Wonder Halikarnas',
+	  icon: markerIconHALIKARNAS,
+	  shape: markerShapeHALIKARNAS,
+	  zIndex:102
+});
+
+//ARTEMIS -----------------
+
+var markerPositionARTEMIS = new google.maps.LatLng(37.949656, 27.364639);
+
+var markerIconARTEMIS = {
+  url: 'icons/icon_artemis.png',
+  size: new google.maps.Size(225, 120),
+  origin: new google.maps.Point(0, 0),
+  anchor: new google.maps.Point(189, 116)
+};
+
+var markerShapeARTEMIS = {
+      coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+      type: 'poly'
+};
+
+markerARTEMIS = new google.maps.Marker({
+	  position: markerPositionARTEMIS,
+      map: wonderMap,
+      title: 'Wonder Artemis',
+	  icon: markerIconARTEMIS,
+	  shape: markerShapeARTEMIS,
+	  zIndex:102
+});
+
+}
+
+
+</script>
+
+</head>
+<body>  
+     <!--Create the div to hold the map.-->
+    <div id="wonder-map">asdasdasd</div>   
+</body>
+</html>
